@@ -19,7 +19,7 @@ interface Model {
      * @return \SimpleORM\Model|\SimpleORM\Collection|null uno o più modelli
      * che rispettano le condizioni, altrimenti null.
      */
-    static function findWhere(array $conditions);
+    static function findWhere(\Traversable $conditions);
 
     /**
      * Cerca dei modelli con un insieme di ID.
@@ -35,7 +35,7 @@ interface Model {
      * modello in uso.
      * @return int Il numero di record di tutta la tabella.
      */
-    public static function count();
+    static function count();
 
     /**
      * Salva il modello nel database.
@@ -51,4 +51,29 @@ interface Model {
      */
     // static function saveMany(Collection $collection);
 
+    /**
+     * Restituisce una pagina di tutte le istanze del modello.
+     *
+     * @param integer $page La pagina da selezionare.
+     * @return \Priveasy\Models\Collection|null
+     */
+    static function all($page = 1);
+
+    /**
+     * Trasforma gli attributi del modello in un array.
+     *
+     * @param array $properties Le proprietà da trasformare. Se mancanti, 
+     * utilizza quelle già dichiarate nella classe che implementa 
+     * l'interfaccia \Priveasy\Model;
+     * @return array Gli attributi del modello.
+     */
+    function attributesToArray($properties = null);
+
+    /**
+     * Ricava tutte le colonne della tabella a cui
+     * è associato il modello.
+     *
+     * @return array I nomi degli attributi del modello.
+     */
+    static function getAllColumns();
 }

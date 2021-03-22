@@ -34,6 +34,11 @@ class Database
         throw new Exception("Cannot unserialize a singleton.");
     }
 
+    /**
+     * Restituisce la connessione al database.
+     * @return \PDO la connessione configurata con
+     * le costanti DB_HOST, DB_USER, DB_PASSWORD, DB_PORT.
+     */
     public static function getConnection()
     {
         // Default connection.

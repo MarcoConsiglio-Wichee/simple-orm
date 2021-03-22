@@ -27,12 +27,19 @@ class Condition {
     protected $value = null;
 
     /**
+     * Rappresenta una condizione scritta manualmente.
+     *
+     * @var string
+     */
+    protected $special_condition = "";
+
+    /**
      * Trasforma la condizione in una stringa.
      *
      * @return string
      */
     public function __toString() {
-        return "{$this->field} {$this->operator} ?";
+        return $this->special_condition ? $this->special_condition : "{$this->field} {$this->operator} ?";
     }
 
     /**
@@ -62,6 +69,20 @@ class Condition {
             $this->value = $value;
             $this->operator = $operator;
         }
+    }
+
+    public static function getSpecialCondition($condition_string)
+    {
+        if(is_string($condition_string)) {
+            $special_condition = new self(null, null);
+            $special_condition->setSpecialCondition($condition_string);
+            return $special_condition;
+        }
+    }
+
+    public function setSpecialCondition($condition_string)
+    {
+        $this->special_condition = is_string($condition_string) ? $condition_string : "";
     }
 
     /**
